@@ -1,0 +1,200 @@
+NAME
+    Pye - Session-based logging platform on top of MongoDB
+
+SYNOPSIS
+            use Pye;
+
+            my $pye = Pye->new;
+
+            # on session/request/run/whatever:
+            $pye->log($session_id, "Some log message", { data => 'example data' });
+
+DESCRIPTION
+    "Pye" is a dead-simple, session-based logging platform on top of
+    MongoDB. I built "Pye" due to my frustration with file-based loggers
+    that generate logs that are extremely difficult to read, analyze and
+    maintain.
+
+    "Pye" is most useful for services (e.g. web apps) that handle requests,
+    or otherwise work in sessions, but can be useful in virtually any
+    application, including automatic (e.g. cron) scripts.
+
+    In order to use "Pye", your program must define an ID for every session.
+    "Session" can really mean anything here: a client session in a web
+    service, a request to your web service, an execution of a script,
+    whatever. As long as a unique ID can be generated, "Pye" can handle
+    logging for you.
+
+    Main features:
+
+    *   Supporting data
+
+        With "Pye", any complex data structure (i.e. hash) can be attached
+        to any log message, enabling you to illustrate a situation, display
+        complex data, etc.
+
+    *   No log levels
+
+        Yeah, I consider this a feature. Log levels are a bother, and I
+        don't need them. All log messages in "Pye" are saved into the
+        database, nothing gets lost.
+
+    *   Easy inspection
+
+        "Pye" comes with a command line utility, pye, that offers quick
+        inspection of the log. You can easily view a list of current/latest
+        sessions and read the log of a specific session. No more mucking
+        about through endless log files, trying to understand which lines
+        belong to which session, or trying to find that area of the file
+        with messages from that certain date your software died on.
+
+CONSTRUCTOR
+  new( [ %opts ] )
+    Creates a new instance of this class. %opts is anything that can be
+    passed to MongoDB::MongoClient to initiate a database connection, plus
+    the following options:
+
+    *   log_db
+
+        The name of the database to use for saving log messages. Defaults to
+        "logs".
+
+    *   log_coll
+
+        The name of the collection in which to save the messages. Defaults
+        to "logs" too.
+
+    *   session_coll
+
+        The name of the collection in which to save session info. Defaults
+        to "sessions".
+
+    *   be_safe
+
+        Boolean indicating whether inserts should be safe (see "insert
+        ($object, $options?)" in MongoDB::Collection for more info).
+        Defaults to a false value.
+
+OBJECT METHODS
+  log( $session_id, $text, [ \%data ] )
+    Inserts a new log message to the database, for the session with the
+    supplied ID and with the supplied text. Optionally, a hash-ref of
+    supporting data can be attached to the message.
+
+    You should note that for consistency, the session ID will always be
+    stored in the database as a string, even if it's a number.
+
+    If a data hash-ref has been supplied, "Pye" will make sure (recursively)
+    that no keys of that hash-ref have dots in them, since MongoDB will
+    refuse to store such hashes. All dots found will be replaced with
+    semicolons (";").
+
+  session_log( $session_id )
+    Returns all log messages for the supplied session ID, sorted by date in
+    ascending order.
+
+  list_sessions( [ \%opts ] )
+    Returns a list of sessions, sorted by the date of the first message
+    logged for each session in descending order. If no options are provided,
+    the latest 10 sessions are returned. The following options are allowed:
+
+    *   limit
+
+        How many sessions to list, defaults to 10.
+
+    *   query
+
+        A MongoDB query hash-ref to filter the sessions. Defaults to an
+        empty query. You can query on the session ID (in the "_id"
+        attribute) and the date (in the "date" attribute).
+
+    *   sort
+
+        A MongoDB sort hash-ref to sort the results. Defaults to "{ date =>
+        -1 }" so that sessions are sorted by date in descending order.
+
+CONFIGURATION AND ENVIRONMENT
+    "Pye" requires no configuration files or environment variables.
+
+DEPENDENCIES
+    "Pye" depends on the following CPAN modules:
+
+    *   Carp
+
+    *   MongoDB
+
+    *   Tie::IxHash
+
+    The command line utility, pye, depends on:
+
+    *   Getopt::Compact
+
+    *   JSON
+
+    *   Term::ANSIColor
+
+    *   Text::SpanningTable
+
+BUGS AND LIMITATIONS
+    Please report any bugs or feature requests to "bug-Pye@rt.cpan.org", or
+    through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Pye>.
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+            perldoc Pye
+
+    You can also look for information at:
+
+    *   RT: CPAN's request tracker
+
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Pye>
+
+    *   AnnoCPAN: Annotated CPAN documentation
+
+        <http://annocpan.org/dist/Pye>
+
+    *   CPAN Ratings
+
+        <http://cpanratings.perl.org/d/Pye>
+
+    *   Search CPAN
+
+        <http://search.cpan.org/dist/Pye/>
+
+AUTHOR
+    Ido Perlmuter <ido@ido50.net>
+
+LICENSE AND COPYRIGHT
+    Copyright (c) 2013, Ido Perlmuter "ido@ido50.net".
+
+    This module is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself, either version 5.8.1 or any later
+    version. See perlartistic and perlgpl.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+DISCLAIMER OF WARRANTY
+    BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+    FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN
+    OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+    PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+    EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
+    ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH
+    YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
+    NECESSARY SERVICING, REPAIR, OR CORRECTION.
+
+    IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+    WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+    REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE LIABLE
+    TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL, OR
+    CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE
+    SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
+    RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+    FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
+    SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+    DAMAGES.
+
