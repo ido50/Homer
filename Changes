@@ -1,4 +1,7 @@
 Revision history for Homer
 
 {{$NEXT}}
+    - Re-release under the terms of the Apache License 2.0
+
+1.000000  2014-04-11 22:14:27+03:00 Asia/Jerusalem
 	- First public release

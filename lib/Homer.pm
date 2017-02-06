@@ -7,7 +7,7 @@ use strict;
 
 use Carp;
 
-our $VERSION = "1.000000";
+our $VERSION = "1.000001";
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -207,7 +207,7 @@ sub _generate_object {
 }
 
 =head1 CONFIGURATION AND ENVIRONMENT
-  
+
 C<Homer> requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
@@ -229,63 +229,44 @@ You can find documentation for this module with the perldoc command.
 You can also look for information at:
 
 =over 4
- 
+
 =item * RT: CPAN's request tracker
- 
+
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Homer>
- 
+
 =item * AnnoCPAN: Annotated CPAN documentation
- 
+
 L<http://annocpan.org/dist/Homer>
- 
+
 =item * CPAN Ratings
- 
+
 L<http://cpanratings.perl.org/d/Homer>
- 
+
 =item * Search CPAN
- 
+
 L<http://search.cpan.org/dist/Homer/>
- 
+
 =back
- 
+
 =head1 AUTHOR
- 
+
 Ido Perlmuter <ido@ido50.net>
- 
+
 =head1 LICENSE AND COPYRIGHT
- 
-Copyright (c) 2014, Ido Perlmuter C<< ido@ido50.net >>.
- 
-This module is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself, either version
-5.8.1 or any later version. See L<perlartistic|perlartistic>
-and L<perlgpl|perlgpl>.
- 
-The full text of the license can be found in the
-LICENSE file included with this module.
- 
-=head1 DISCLAIMER OF WARRANTY
- 
-BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
-FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN
-OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
-PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
-EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
-ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH
-YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
-NECESSARY SERVICING, REPAIR, OR CORRECTION.
- 
-IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
-WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
-REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE
-LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL,
-OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE
-THE SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
-RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
-FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
-SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
-SUCH DAMAGES.
+
+Copyright 2017 Ido Perlmuter
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 =cut
 
